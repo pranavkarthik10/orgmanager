@@ -20,10 +20,10 @@ before_script:
 - travis_retry composer self-update
 - travis_retry composer update --no-interaction --prefer-source
 script:
-- phpunit --coverage-text --coverage-clover=coverage.xml
+- vendor/bin/phpunit --coverage-clover=coverage.xml
 after_script:
-- wget https://scrutinizer-ci.com/ocular.phar
-- php ocular.phar code-coverage:upload --format=php-clover coverage.xml
+# - wget https://scrutinizer-ci.com/ocular.phar
+# - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
 - bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: heroku
