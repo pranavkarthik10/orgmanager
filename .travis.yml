@@ -1,24 +1,22 @@
 language: php
-
 php:
-  - 7.2
-  - 7.3
-
+- 7.2
+- 7.3
 cache:
   directories:
   - vendor
-
 notifications:
   email: false
-
 before_script:
-  - travis_retry composer self-update
-  - travis_retry composer update --no-interaction --prefer-source
-
+- travis_retry composer self-update
+- travis_retry composer update --no-interaction --prefer-source
 script:
-  - phpunit --coverage-text --coverage-clover=coverage.xml
-
+- phpunit --coverage-text --coverage-clover=coverage.xml
 after_script:
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
-  - bash <(curl -s https://codecov.io/bash)
+- wget https://scrutinizer-ci.com/ocular.phar
+- php ocular.phar code-coverage:upload --format=php-clover coverage.xml
+- bash <(curl -s https://codecov.io/bash)
+deploy:
+  provider: heroku
+  api_key:
+    secure: Bu7W9OPtHTVUKVLntCex2x5lMF8mjmaBRC7I6LEXgPhB6aTR3fuO0JfrQOT5GTvqr3/q4MCrMwPsEEP9p/H7bG/11O9HkI8N8ohtKqgo5gTqgRecykK+B42RcKMjRlL7HNn91YNVmqMDVpsmGWeMrxS4/zWMgRjbvbR5i2p8rwAj7TtDyFHY7mFj/uVBi+xB55IVl3YUOM8eLbhNQnVoMISYnOnON8N4A5j6JaUCfOF7ADijU+qMqoS38ic27SCyliCIRq7yiw9eql7epujkeAzKPxf+e7FXUKgmInWHnY00zNsOi9sjmSzWgIhX5F+C640PJ0y4srzh24cJs0fmnCUG0aPCf3ZsRA/+vDnPyeTPHeYXcaqgp2n83D0PWr8cO23vCCOI1uPyjDbNtNb98nuCPldehwNmoM4Lhype9DaW8vL3h+STIIQh9ntR2SCXpIIA1RplUIB0HPYKP+6LAat5mryDTkkrARgrKNXErZAcnmsv8ex8omntQCoDhQJkSW3GJuWNFKbveOvLNtlcxkghWzTbrvI7uEcSJYfeCZJTGZoQGt3VwEtkPnvCKuK++xmSInuqVCkz33NUGpb5kTF+Whip5yAB5qjtRNePkjfzwvlM7bYDs9n08Ts2QeHW+PUUtYeXC4Xs5k8qnHoSmVPR/jxxFMjci42hLvI7StI=
