@@ -44,6 +44,7 @@ class JoinController extends Controller
         Artisan::call('orgmanager:joinorg', [
           'org'      => $org->id,
           'username' => $user,
+          'email'    => $email,
       ]);
 
         return redirect(url("https://github.com/orgs/$org->name/invitation/"));
