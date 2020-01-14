@@ -35,10 +35,10 @@ class JoinController extends Controller
         try {
             $user = Socialite::driver('github')->user();
         } catch (InvalidStateException $e) {
-            return redirect('join/'.$org->id)->withErrors('Something went wrong when authenticating with GitHub. Please try again later or open an issue.');
+            return redirect('callback');
         }
         if ($this->isMember($org, $user = $user->getNickname())) {
-            return redirect('join/'.$org->id)->withErrors(trans('alerts.member'));
+            return redirect('callback');
         }
 
         Artisan::call('orgmanager:joinorg', [
@@ -53,7 +53,7 @@ class JoinController extends Controller
     {
         $org = Org::where('name', $name)->firstOrFail();
 
-        return redirect('join/'.$org->id);
+        return redirect('callback');
     }
 
     protected function isMember(Org $org, $username)
