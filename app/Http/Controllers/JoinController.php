@@ -35,10 +35,10 @@ class JoinController extends Controller
         try {
             $user = Socialite::driver('github')->user();
         } catch (InvalidStateException $e) {
-            return redirect('callback');
+            // return redirect('callback');
         }
         if ($this->isMember($org, $user = $user->getNickname())) {
-            return redirect('callback');
+            // return redirect('callback');
         }
 
         Artisan::call('orgmanager:joinorg', [
@@ -46,14 +46,14 @@ class JoinController extends Controller
           'username' => $user,
       ]);
 
-        return redirect(url("https://github.com/orgs/$org->name/invitation/"));
+        // return redirect(url("https://github.com/orgs/$org->name/invitation/"));
     }
 
     public function redirect($name)
     {
         $org = Org::where('name', $name)->firstOrFail();
 
-        return redirect('callback');
+        // return redirect('callback');
     }
 
     protected function isMember(Org $org, $username)
@@ -71,14 +71,14 @@ class JoinController extends Controller
     protected function validateRequest(Request $request, Org $org)
     {
         if (! $this->captchaCheck($request)) {
-            return redirect('join/'.$org->id)->withErrors('You need to prove you are not a robot!');
+            // return redirect('join/'.$org->id)->withErrors('You need to prove you are not a robot!');
         }
         if ($org->password && trim($org->password) != '') {
             if (! $request->has('org_password')) {
-                return redirect('join/'.$org->id)->withErrors(trans('alerts.passwd1'));
+                // return redirect('join/'.$org->id)->withErrors(trans('alerts.passwd1'));
             }
             if (! password_verify($request->org_password, $org->password)) {
-                return redirect('join/'.$org->id)->withErrors(trans('alerts.passwd2'));
+                // return redirect('join/'.$org->id)->withErrors(trans('alerts.passwd2'));
             }
         }
     }
