@@ -7,7 +7,7 @@ use App\User;
 use Socialite;
 use App\Mail\WelcomeUser;
 use Illuminate\Support\Facades\Mail;
-use Socialite\Two;
+use Socialite\Two\GithubProvider;
 
 class LoginController extends Controller
 {
