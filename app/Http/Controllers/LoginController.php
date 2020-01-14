@@ -22,12 +22,12 @@ class LoginController extends Controller
 
     public function loginUser()
     {
-        $github = Socialite::with('github')->user();
+        $github = Socialite::driver('github')->user();
         $user = User::where('email', '=', $github->getEmail())->first();
         if ($user === null) {
             $user = User::create([
-              'name'             => $github->getName(),
-              'email'            => $github->getEmail(),
+              'name'             => $github->name,
+              'email'            => $github->email,
               'github_username'  => $github->getNickname(),
               'token'            => $github->token,
               'api_token'        => str_random(60),
