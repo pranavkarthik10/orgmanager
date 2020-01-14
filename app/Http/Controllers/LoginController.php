@@ -25,7 +25,7 @@ class LoginController extends Controller
         $github = Socialite::driver('github')->user();
         $email = Socialite::driver('github')->user()->emails();
        
-        $user = User::where('email', '=', $github_email->getEmail())->first();
+        $user = User::where('email', '=', $email->getEmail())->first();
         if ($user === null) {
             $user = User::create([
               'name'             => $github->getName(),
@@ -41,7 +41,7 @@ class LoginController extends Controller
         }
         $user->update([
             'name'             => $github->getName(),
-            'email'            => $github->getEmail(),
+            'email'            => $email->getEmail(),
             'github_username'  => $github->getNickname(),
             'token'            => $github->token,
         ]);
