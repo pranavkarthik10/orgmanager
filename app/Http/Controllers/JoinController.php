@@ -77,8 +77,8 @@ class JoinController extends Controller
             if (! $request->has('org_password')) {
                 return redirect('callback')->withErrors(trans('alerts.passwd1'));
             }
-            if (! password_verify($requesreturn redirect('callback')->withErrors(trans('alerts.passwd2'));t->org_password, $org->password)) {
-                
+            if (! password_verify($request->org_password, $org->password)) {
+                return redirect('callback')->withErrors(trans('alerts.passwd2'));
             }
         }
     }
