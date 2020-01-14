@@ -27,8 +27,7 @@ class JoinController extends Controller
             return $validation;
         }
 
-        return Socialite::driver('github')->setScopes([]);
-        // ->redirectUrl(route('join.callback', $org))->redirect();
+        return Socialite::driver('github')->setScopes([])->redirect();
     }
 
     public function callback(Request $request, Org $org)
