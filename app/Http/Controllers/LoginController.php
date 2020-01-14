@@ -7,7 +7,7 @@ use App\User;
 use Socialite;
 use App\Mail\WelcomeUser;
 use Illuminate\Support\Facades\Mail;
-use Laravel\Socialite\Two;
+use Socialite\Two;
 
 class LoginController extends Controller
 {
