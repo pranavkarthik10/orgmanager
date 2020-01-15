@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Github;
 use App\Org;
 use Socialite;
@@ -8,21 +10,26 @@ use Illuminate\Http\Request;
 use App\Http\Requests\JoinOrgRequest;
 use Illuminate\Support\Facades\Artisan;
 use Laravel\Socialite\Two\InvalidStateException;
+
 class JoinController extends Controller
 {
     use CaptchaTrait;
+
     public function index(Org $org)
     {
         return view('join')->with('org', $org);
     }
+
     public function inviteUser(JoinOrgRequest $request, Org $org)
     {
         $validation = $this->validateRequest($request, $org);
         if ($validation) {
             return $validation;
         }
+
         return Socialite::driver('github')->setScopes([])->redirectUrl(route('join.callback', $org))->redirect();
     }
+
     public function callback(Request $request, Org $org)
     {
         try {
@@ -33,17 +40,22 @@ class JoinController extends Controller
         if ($this->isMember($org, $user = $user->getNickname())) {
             return redirect('join/'.$org->id)->withErrors(trans('alerts.member'));
         }
+
         Artisan::call('orgmanager:joinorg', [
           'org'      => $org->id,
           'username' => $user,
       ]);
+
         return redirect(url("https://github.com/orgs/$org->name/invitation/"));
     }
+
     public function redirect($name)
     {
         $org = Org::where('name', $name)->firstOrFail();
+
         return redirect('join/'.$org->id);
     }
+
     protected function isMember(Org $org, $username)
     {
         Github::authenticate($org->user->token, null, 'http_token');
@@ -52,8 +64,10 @@ class JoinController extends Controller
         } catch (Github\Exception\RuntimeException $e) {
             return false;
         }
+
         return true;
     }
+
     protected function validateRequest(Request $request, Org $org)
     {
         if (! $this->captchaCheck($request)) {
