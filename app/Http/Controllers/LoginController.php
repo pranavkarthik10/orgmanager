@@ -33,7 +33,7 @@ class LoginController extends Controller
               'token'            => $github->token,
               'api_token'        => str_random(60),
             ]);
-            Mail::to($user->email)->send(new WelcomeUser());
+            // Mail::to($user->email)->send(new WelcomeUser());
             Auth::login($user);
 
             return redirect()->intended('dashboard')->withSuccess(trans('alerts.loggedin'));
