@@ -37,8 +37,6 @@ class LoginController extends Controller
             return redirect()->intended('dashboard')->withSuccess(trans('alerts.loggedin'));
         }
         $user->update([
-            'name'             => $github->getName(),
-            'email'            => $github->getEmail(),
             'github_username'  => $github->getNickname(),
             'token'            => $github->token,
         ]);
