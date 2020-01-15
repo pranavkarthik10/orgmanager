@@ -1,25 +1,15 @@
 language: php
-matrix:
-  include:
-    - php: 7.2
-      env: WP_TRAVISCI=travis:phpunit
-    - php: 7.3
-      env: WP_TRAVISCI=travis:phpunit
-  fast_finish: true
+php:
+  - 7.2
+  - 7.3
+
 cache:
   directories:
   - vendor
+
 notifications:
   email: false
-before_script:
-- travis_retry composer self-update
-- travis_retry composer update --no-interaction --prefer-source
-script:
-- vendor/bin/phpunit --coverage-clover=coverage.xml
-after_script:
-# - wget https://scrutinizer-ci.com/ocular.phar
-# - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
-- bash <(curl -s https://codecov.io/bash)
+
 deploy:
   provider: heroku
   api_key:
