@@ -31,7 +31,7 @@ Route::post('sync', 'GithubController@syncOrgs')->name('sync');
 Route::post('sync/{org}', 'GithubController@syncOrg')->name('sync.org');
 Route::get('join/{org}', 'JoinController@index')->name('join');
 Route::post('join/{org}', 'JoinController@inviteUser')->name('join.post');
-Route::get('callback', 'JoinController@callback')->name('join.callback');
+Route::get('join/{org}/callback', 'JoinController@callback')->name('join.callback');
 Route::get('o/{name}', 'JoinController@redirect')->name('redirect');
 Route::view('developer', 'developer')->name('developer');
 Route::view('token', 'token')->middleware('auth')->name('token');

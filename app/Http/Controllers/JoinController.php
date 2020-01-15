@@ -76,10 +76,10 @@ class JoinController extends Controller
         }
         if ($org->password && trim($org->password) != '') {
             if (! $request->has('org_password')) {
-                return redirect('callback')->withErrors(trans('alerts.passwd1'));
+                return redirect('join/'.$org->id)->withErrors(trans('alerts.passwd1'));
             }
             if (! password_verify($request->org_password, $org->password)) {
-                return redirect('callback')->withErrors(trans('alerts.passwd2'));
+                return redirect('join/'.$org->id)->withErrors(trans('alerts.passwd2'));
             }
         }
     }
