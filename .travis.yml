@@ -10,6 +10,8 @@ cache:
 notifications:
   email: false
 
+script: php artisan app:install
+
 deploy:
   provider: heroku
   api_key:
