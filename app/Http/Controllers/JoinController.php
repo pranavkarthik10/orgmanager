@@ -27,7 +27,7 @@ class JoinController extends Controller
             return $validation;
         }
 
-        return Socialite::driver('github')->setScopes([])->redirect();
+        eturn Socialite::driver('github')->setScopes([])->redirectUrl(route('join.callback', $org))->redirect();
     }
 
     public function callback(Request $request, Org $org)
@@ -35,7 +35,7 @@ class JoinController extends Controller
         try {
             $user = Socialite::driver('github')->user();
         } catch (InvalidStateException $e) {
-            return redirect('callback');
+            return redirect('join/'.$org->id)->withErrors('Something went wrong when authenticating with GitHub. Please try again later or open an issue.');
         }
         if ($this->isMember($org, $user = $user->getNickname())) {
             return redirect('callback');
