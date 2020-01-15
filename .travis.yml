@@ -10,7 +10,7 @@ cache:
 notifications:
   email: false
 
-script: php artisan migrate
+script: echo 'Orgmanager Running'
 
 deploy:
   provider: heroku
