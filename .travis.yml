@@ -3,14 +3,14 @@ php:
   - 7.2
   - 7.3
 
-# cache:
-#   directories:
-#   - vendor
+cache:
+  directories:
+  - vendor
 
 notifications:
   email: false
 
-script: php artisan app:install
+script: php artisan migrate
 
 deploy:
   provider: heroku
