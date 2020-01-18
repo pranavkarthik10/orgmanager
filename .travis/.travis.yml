@@ -9,9 +9,6 @@ cache:
   - vendor
 notifications:
   email: false
-addons:
-  ssh_known_hosts:
-  - "<your-host.tld>:<portnumber>"
 before_install:
 - eval "$(ssh-agent -s)"
 - cp .travis/id_rsa ~/.ssh/deploy_rsa
